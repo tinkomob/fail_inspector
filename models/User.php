@@ -2,17 +2,57 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $full_name
+ * @property string $email
+ */
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $password_repeat;
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'user';
     }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['username','password'], 'required'],
-            [['username', 'password'], 'string','max' => 255],
+            [['username', 'password', 'full_name', 'email'], 'required'],
+            [['username', 'password'], 'string', 'max' => 50],
+            [['full_name', 'email'], 'string', 'max' => 255],
+            [['email'], 'email'],
+            [['username'], 'match', 'pattern' => '/[a-z]+/i', 'message'=>'Имя пользователя должно содержать только латиницу!'],
+            [['full_name'], 'match', 'pattern' => '/[а-я]+/ui', 'message'=>'ФИО может 
+            содержать только кириллицу!'],
+            ['password_repeat', 'required'],
+            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают" ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'full_name' => 'Full Name',
+            'email' => 'Email',
         ];
     }
     /**
@@ -75,5 +115,14 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === md5($password);
+    }
+    public function beforeSave($insert) {
+
+        $pass = md5($this->password);
+
+        $this->password = $pass;
+
+        return true;
+
     }
 }

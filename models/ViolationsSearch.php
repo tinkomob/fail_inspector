@@ -16,6 +16,7 @@ class ViolationsSearch extends Violations
      */
     public $datetime_start;
     public $datetime_end;
+    public $team_id;
 
     public function behaviors() {
         return [
@@ -33,8 +34,9 @@ class ViolationsSearch extends Violations
     public function rules()
     {
         return [
-            [['id', 'worker_id', 'type_id'], 'integer'],
+            [['id', 'worker_id', 'type_id', 'team_id'], 'integer'],
             [['date'], 'safe'],
+            [['team_id'], 'safe'],
             // [['date'], 'match', 'pattern' => '/^.+\s\-\s.+$/'],
         ];
     }
@@ -58,8 +60,7 @@ class ViolationsSearch extends Violations
     public function search($params)
     {
         $query = Violations::find();
-        
-
+        $query->joinWith(['worker']);
         // add conditions that should always apply here
         
         $dataProvider = new ActiveDataProvider([
@@ -77,9 +78,12 @@ class ViolationsSearch extends Violations
         // grid filtering conditions
         $query->andFilterWhere([
             'worker_id' => $this->worker_id,
+            'type_id' => $this->type_id,
         ]);
-        
+
         $query->andFilterWhere(['between', 'date', $this->datetime_start, $this->datetime_end]);
+        
+        $query->andFilterWhere(['like', 'team_id', $this->team_id]);
                   
 
         return $dataProvider;

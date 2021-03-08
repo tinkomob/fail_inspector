@@ -75,6 +75,10 @@ $gridColumns = [
             'value' => 'worker.fio'
         ],
         [
+            'attribute' => 'Бригада',
+            'value' => 'worker.team.title'
+        ],
+        [
             'attribute' => 'Должность',
             'value' => 'worker.position.title'
         ],

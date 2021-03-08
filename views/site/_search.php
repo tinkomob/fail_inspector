@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use app\models\Workers;
 use app\models\ViType;
+use app\models\Team;
 use kartik\form\ActiveForm;
 use kartik\daterange\DateRangePicker;
 /* @var $this yii\web\View */
@@ -20,7 +21,18 @@ use kartik\daterange\DateRangePicker;
 <?= $form->field($model, 'worker_id')
      ->dropDownList(
                  ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title')
-            , ['prompt'=>'- Выберите сотрудника -', 'id' => 'worker_id'])->label('Сотрдуник') ?>
+            , ['prompt'=>'- Выберите сотрудника -', 'id' => 'worker_id'])->label('По сотруднику') ?>
+
+<?= $form->field($model, 'type_id')
+     ->dropDownList(
+                 ArrayHelper::map(ViType::find()->all(), 'id', 'title')
+            , ['prompt'=>'- Выберите нарушение -', 'id' => 'type_id'])->label('По нарушению') ?>
+<?= $form->field($model, 'team_id')
+     ->dropDownList(
+                 ArrayHelper::map(Team::find()->all(), 'id', 'title')
+            , ['prompt'=>'- Выберите бригаду -', 'id' => 'type_id'])->label('По бригаде') ?>
+
+
 <?= 
 $form->field($model, 'date', [
     'addon'=>['prepend'=>['content'=>'<i class="fas fa-calendar-alt"></i>']],
@@ -31,14 +43,7 @@ $form->field($model, 'date', [
     'hideInput'=>true,
     'presetDropdown'=>true,
     'model'=>$model,
-//     'containerTemplate' => '
-//     <span class="form-control text-right">
-//     <span class="pull-left">
-//         <span class="range-value">{value}</span>
-//     </span>
-//     <b class="caret"></b>
-//     {input}
-// </span>',
+
 
     'attribute'=>'date',
     'startAttribute' => 'datetime_start',
@@ -60,17 +65,11 @@ $form->field($model, 'date', [
 
 
     ],
-]);
-// DateRangePicker::widget([
-    
-    
-//     // 'options' => ['autocomplete' => 'off'],
-
-// ]);
+])->label('За период');
 ?>
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Фильтровать', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Сброс', ['index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
