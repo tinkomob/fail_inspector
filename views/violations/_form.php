@@ -8,6 +8,8 @@ use app\models\ViType;
 use yii\helpers\ArrayHelper;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+use kartik\select2\Select2
+ 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Violations */
@@ -18,10 +20,17 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'worker_id')
-     ->dropDownList(
-                 ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title')
-            , ['prompt'=>'- Выберите сотрудника -', 'id' => 'worker_id'])->label('Сотрдуник') ?>
+    
+
+       <?= 
+       $form->field($model, 'worker_id')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title'),
+    'options' => ['placeholder' => 'Выберите сотрудника ...'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+    ])->label('Сотрудник'); 
+?>
     <?php 
     if($model->date) {
         $model->date = date("d.m.Y H:i", (integer) $model->date);
@@ -61,15 +70,22 @@ use yii\helpers\Url;
         //         // 'params' => ['input-type-1', 'input-type-2']
         //     ]
         // ]);
+
+
+    //     $form->field($model, 'worker_id')
+    //  ->dropDownList(
+    //              ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title')
+    //         , ['prompt'=>'- Выберите сотрудника -', 'id' => 'worker_id'])->label('Сотрдуник') 
+
         $form->field($model, 'type_id')->widget(DepDrop::classname(), [
             'options'=>['id'=>'type'],
             'data'=> [$type_selected_data],
             'pluginOptions'=>[
-                'depends'=>['worker_id'],
+                'depends'=>['violations-worker_id'],
                 'placeholder'=>'- Выберите нарушение -',
                 'url'=>Url::to(['/violations/subcat']),
                 // 'params'=> ['selected_id'], 
-                'initialize' => true,
+                // 'initialize' => true,
             ]
         ])->label('Тип нарушения');
     ?>

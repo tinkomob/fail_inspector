@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 // use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 use app\models\Workers;
 use app\models\ViType;
 use app\models\Team;
@@ -18,15 +19,22 @@ use kartik\daterange\DateRangePicker;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-<?= $form->field($model, 'worker_id')
-     ->dropDownList(
-                 ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title')
-            , ['prompt'=>'- Выберите сотрудника -', 'id' => 'worker_id'])->label('По сотруднику') ?>
+    
+<?=  $form->field($model, 'worker_id')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title'),
+    'options' => ['placeholder' => 'Выберите сотрудника ...'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+    ])->label('По сотруднику');  ?>
 
-<?= $form->field($model, 'type_id')
-     ->dropDownList(
-                 ArrayHelper::map(ViType::find()->all(), 'id', 'title')
-            , ['prompt'=>'- Выберите нарушение -', 'id' => 'type_id'])->label('По нарушению') ?>
+<?= $form->field($model, 'type_id')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(ViType::find()->all(), 'id', 'title', 'class'),
+    'options' => ['placeholder' => 'Выберите нарушение ...'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+    ])->label('По нарушению')  ?>
 <?= $form->field($model, 'team_id')
      ->dropDownList(
                  ArrayHelper::map(Team::find()->all(), 'id', 'title')
