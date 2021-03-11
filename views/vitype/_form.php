@@ -22,12 +22,12 @@ use yii\helpers\ArrayHelper;
             )->label('Должность') ?>
 
     <?= $form->field($model, 'class')->dropDownList([
-    'general' => 'Общее',
-    'spec' => 'Должность',
+    'Общее' => 'Общее',
+    'Должность' => 'Должность',
 ])->label('Тип нарушения');?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

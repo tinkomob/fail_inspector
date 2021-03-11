@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TeamSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Teams';
+$this->title = 'Бригады';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="team-index">
@@ -15,19 +15,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Team', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить бригаду', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'title',
+            // 'id',
+            // 'title',
+            [
+                'attribute' => 'Название',
+                'value' => 'title'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

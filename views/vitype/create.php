@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\ViType */
 
-$this->title = 'Create Vi Type';
-$this->params['breadcrumbs'][] = ['label' => 'Vi Types', 'url' => ['index']];
+$this->title = 'Добавить тип нарушения';
+$this->params['breadcrumbs'][] = ['label' => 'Типы нарушения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vi-type-create">

@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Violations */
 
-$this->title = 'Update Violations: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Violations', 'url' => ['index']];
+$this->title = 'Изменение нарушения';
+$this->params['breadcrumbs'][] = ['label' => 'Нарушения', 'url' => ['site/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="violations-update">
 

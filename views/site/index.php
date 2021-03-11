@@ -9,23 +9,11 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-        <?= Html::a('Добавить сотрудника', ['workers/create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Добавить тип нарушения', ['vitype/create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Добавить бригаду', ['team/create'], ['class' => 'btn btn-success']) ?>
-    </div>
-
     <div class="body-content">
         
     <div class="violations-index">
-
-<h1><?= Html::encode($this->title) ?></h1>
-
-<p>
-    <?= Html::a('Добавить нарушение', ['violations/create'], ['class' => 'btn btn-success']) ?>
-</p>
-<?php
+    <h1>Список нарушений</h1>
+    <?php
 $gridColumns = [
     ['class' => 'yii\grid\SerialColumn'],
     // 'id',
@@ -52,21 +40,17 @@ $gridColumns = [
     ['class' => 'yii\grid\ActionColumn'],
 ];
 ?>
-<?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
-<?php echo ExportMenu::widget([
+    <?php echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
     'columns' => $gridColumns,
     'dropdownOptions' => [
         'label' => 'Экспорт',
         'class' => 'btn btn-outline-secondary'
     ]
-]);
-?>
-
-<?= GridView::widget([
+]); ?>
+    <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    
     // 'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
@@ -92,7 +76,8 @@ $gridColumns = [
             'format' => ['date', 'php:d-m-Y H:i']
         ],
         [
-        'class' => 'yii\grid\ActionColumn', 
+        'class' => 'yii\grid\ActionColumn',
+        'visible' => !Yii::$app->user->isGuest, 
         'urlCreator' => function( $action, $model, $key, $index ){
 
             if ($action == "update") {
@@ -114,6 +99,29 @@ $gridColumns = [
         ],
     ],
 ]); ?>
+<?php
+
+?>
+<?php if (!Yii::$app->user->isGuest):  ?>
+<h1>Управление</h1>
+
+<p>
+<?= Html::a('Добавить нарушение', ['violations/create'], ['class' => 'btn btn-primary']) ?> 
+<?= Html::a('Добавить сотрудника', ['workers/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить тип нарушения', ['vitype/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить бригаду', ['team/create'], ['class' => 'btn btn-success']) ?>
+    
+</p>
+<?php endif; ?>
+
+<h1>Фильтр</h1>
+
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+
+
+
+
 
 
 </div>

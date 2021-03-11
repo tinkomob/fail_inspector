@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Team */
 
 $this->title = 'Добавить бригаду';
-$this->params['breadcrumbs'][] = ['label' => 'Teams', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Бригады', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="team-create">

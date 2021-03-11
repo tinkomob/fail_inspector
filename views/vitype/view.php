@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\ViType */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Vi Types', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Типы нарушений', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить объект?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,11 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
         'attributes' => [
             'id',
-            'title',
-            'position_id',
-            'class',
+            [
+                'attribute' => 'Название нарушения',
+                'value' => $model->title,
+            ],
+            // 'title',
+            [
+                'attribute' => 'Должность',
+                'value' => isset($model->position->title) ? $model->position->title : "Для всех должностей",
+            ],
+            [
+                'attribute' => 'Тип нарушения',
+                'value' => $model->class,
+            ],
         ],
     ]) ?>
 

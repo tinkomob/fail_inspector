@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Violations */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Violations', 'url' => ['index']];
+$this->title = $model->worker->fio.' - '.$model->type->title;
+$this->params['breadcrumbs'][] = ['label' => 'Нарушения', 'url' => ['site/index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить объект?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'Сотрудник',
                 'value' => $model->worker->fio,
             ],
-            'date',
+            // 'date',
+            [
+                'attribute' => 'Дата нарушения',
+                'value' => $model->date,
+            ],
             [
                 'attribute' => 'Тип нарушения',
                 'value' => $model->type->title,
