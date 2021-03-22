@@ -35,6 +35,17 @@ class UserController extends Controller
                             return false;
                         }
                     ],
+                    [
+                        'actions' => ['view', 'update', 'delete',],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (Yii::$app->user->id == User::findOne(Yii::$app->request->get('id'))->id){
+                                return true;
+                            }
+                            return false;
+                        }
+                    ],
                 ],
             ],
             'verbs' => [

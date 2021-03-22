@@ -82,10 +82,14 @@ class ViolationsController extends Controller
     public function actionCreate()
     {
         $model = new Violations();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        
+        if ($model->load(Yii::$app->request->post())){
+            $model->author_id = Yii::$app->user->identity->id;
+            if( $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        
 
         return $this->render('create', [
             'model' => $model,

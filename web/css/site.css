@@ -11,6 +11,7 @@ body {
 }
 
 .wrap > .container {
+    max-width: 100%;
     padding: 70px 15px 20px;
 }
 
@@ -20,6 +21,7 @@ body {
     border-top: 1px solid #ddd;
     padding-top: 20px;
     margin-top: 300px;
+    max-width: 100%;
 }
 
 .jumbotron {
@@ -126,4 +128,20 @@ a.desc:after {
 }
 .kv-drp-dropdown .kv-clear{
     display: none;
+}
+
+@media(max-width:480px) {
+    table{
+        display: block;
+        max-width: 100%;
+        width: 100%;
+        overflow-x: auto;
+    }
+    .violations-index .btn{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .violations-index button{
+        width: 100%;
+    }
 }

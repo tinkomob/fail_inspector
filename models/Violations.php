@@ -11,9 +11,11 @@ use Yii;
  * @property int $worker_id
  * @property string $date
  * @property int $type_id
+ * @property int $author_id 
  *
  * @property Workers $worker
  * @property ViType $type
+ * @property User $author 
  */
 class Violations extends \yii\db\ActiveRecord
 {
@@ -32,11 +34,12 @@ class Violations extends \yii\db\ActiveRecord
     {
         return [
             [['worker_id', 'date', 'type_id'], 'required'],
-            [['worker_id', 'type_id'], 'integer'],
+            [['worker_id', 'type_id', 'author_id'], 'integer'],
             [['date'], 'safe'],
             // [['date'], 'date', 'format' => 'yyyy-M-d H:m:s'],
             [['worker_id'], 'exist', 'skipOnError' => true, 'targetClass' => Workers::className(), 'targetAttribute' => ['worker_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ViType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']], 
         ];
     }
 
@@ -62,7 +65,15 @@ class Violations extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Workers::className(), ['id' => 'worker_id']);
     }
-
+    /** 
+    * Gets query for [[Author]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getAuthor() 
+   { 
+       return $this->hasOne(User::className(), ['id' => 'author_id']);
+   }
     /**
      * Gets query for [[Type]].
      *

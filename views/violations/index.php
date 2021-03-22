@@ -49,6 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => ['date', 'php:d-m-Y H:i']
         ],
         [
+            'attribute' => 'Автор',
+            'value' => 'author.full_name',
+        ],
+        [
         'class' => 'yii\grid\ActionColumn',
         'visible' => !Yii::$app->user->isGuest, 
         'urlCreator' => function( $action, $model, $key, $index ){

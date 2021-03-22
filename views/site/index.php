@@ -1,11 +1,12 @@
 <?php
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 use kartik\export\ExportMenu;
+use app\models\Violations;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Контроль нарушений';
 ?>
 <div class="site-index">
 
@@ -13,15 +14,23 @@ $this->title = 'My Yii Application';
         
     <div class="violations-index">
     <h1>Список нарушений</h1>
+    
+    <h2>Фильтр</h2>
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
 $gridColumns = [
-    ['class' => 'yii\grid\SerialColumn'],
+    ['class' => 'kartik\grid\SerialColumn'],
     // 'id',
     [
         'attribute'=>'worker.fio',
         'label'=>'Сотрудник',
+        'footer' => 'Всего нарушений: '.Violations::find()->count(),
     ],
-    
+    [
+        'attribute' => 'Бригада',
+        'value' => 'worker.team.title',
+    ],
     [
         'attribute'=>'worker.position.title',
         'label'=>'Должность',
@@ -29,15 +38,17 @@ $gridColumns = [
     [
         'attribute'=>'type.title',
         'label'=>'Тип нарушения',
+        
     ],
     [
         'attribute'=>'date',
         'label'=>'Дата нарушения',
+        'format' => ['date', 'php:d-m-Y H:i'],
     ],
     
     
     
-    ['class' => 'yii\grid\ActionColumn'],
+    ['class' => 'kartik\grid\ActionColumn'],
 ];
 ?>
     <?php echo ExportMenu::widget([
@@ -50,13 +61,15 @@ $gridColumns = [
 ]); ?>
     <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    
+    'toggleDataContainer' => ['class' => 'btn-group mr-2'],
+    'showFooter' => true,
     // 'filterModel' => $searchModel,
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
+        ['class' => 'kartik\grid\SerialColumn'],
         [
             'attribute' => 'Сотрудник',
-            'value' => 'worker.fio'
+            'value' => 'worker.fio',
+            'footer' => 'Всего нарушений: '.Violations::find()->count(),
         ],
         [
             'attribute' => 'Бригада',
@@ -68,7 +81,7 @@ $gridColumns = [
         ],
         [
             'attribute' => 'Нарушение',
-            'value' => 'type.title'
+            'value' => 'type.title',
         ],
         [
             'attribute' => 'Время нарушения',
@@ -76,7 +89,11 @@ $gridColumns = [
             'format' => ['date', 'php:d-m-Y H:i']
         ],
         [
-        'class' => 'yii\grid\ActionColumn',
+            'attribute' => 'Автор',
+            'value' => 'author.full_name',
+        ],
+        [
+        'class' => 'kartik\grid\ActionColumn',
         'visible' => !Yii::$app->user->isGuest, 
         'urlCreator' => function( $action, $model, $key, $index ){
 
@@ -114,9 +131,6 @@ $gridColumns = [
 </p>
 <?php endif; ?>
 
-<h1>Фильтр</h1>
-
-<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
 

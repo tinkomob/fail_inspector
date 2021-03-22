@@ -30,7 +30,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Контроль нарушений',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -39,16 +39,27 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Все юзеры', 'url' => ['/user'], 'visible' => Yii::$app->user->can('manageUsers')],
-            ['label' => 'Добавить юзера', 'url' => ['/user/create'], 'visible' => Yii::$app->user->can('manageUsers')],
+            ['label' => 'Нарушения', 'url' => ['/violations/index']],
+            [
+                'label' => 'Справочники',
+                'items' => [
+                    ['label' => 'Сотрудники', 'url' => ['/workers/index']],
+                    ['label' => 'Бригады', 'url' => ['/team/index']],
+                    ['label' => 'Типы нарушений', 'url' => ['/vitype/index']],
+                ],
+            ],
+            ['label' => 'Отчёт', 'url' => ['/site/index']],
+            ['label' => 'Система', 'url' => ['/user'], 'visible' => Yii::$app->user->can('manageUsers')],
+            ['label' => 'Профиль', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+            
+            ['label' => 'Регистрация', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Логин', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
+                    'Выход (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
