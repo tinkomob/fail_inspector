@@ -29,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'username',
             'password',
-            'full_name',
+            [
+                'attribute' => 'ФИО',
+                'value' => 'full_name'
+            ],
+            [
+                'attribute' => 'Уровень доступа',
+                'value' => 'role'
+            ],
             'email:email',
 
             ['class' => 'yii\grid\ActionColumn'],

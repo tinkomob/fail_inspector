@@ -44,13 +44,14 @@ AppAsset::register($this);
                 'label' => 'Справочники',
                 'items' => [
                     ['label' => 'Сотрудники', 'url' => ['/workers/index']],
+                    ['label' => 'Должности', 'url' => ['/position/index']],
                     ['label' => 'Бригады', 'url' => ['/team/index']],
                     ['label' => 'Типы нарушений', 'url' => ['/vitype/index']],
                 ],
             ],
             ['label' => 'Отчёт', 'url' => ['/site/index']],
             ['label' => 'Система', 'url' => ['/user'], 'visible' => Yii::$app->user->can('manageUsers')],
-            ['label' => 'Профиль', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+            ['label' => 'Профиль', 'url' => ['/user/view', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
             
             ['label' => 'Регистрация', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (

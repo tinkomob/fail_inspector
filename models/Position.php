@@ -29,10 +29,8 @@ class Position extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title'], 'required'],
-            [['id'], 'integer'],
-            [['title'], 'string', 'max' => 100],
-            [['id'], 'unique'],
+            [['title'], 'required'],
+           [['title'], 'string', 'max' => 100],
         ];
     }
 

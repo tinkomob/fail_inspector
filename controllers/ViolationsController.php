@@ -31,9 +31,26 @@ class ViolationsController extends Controller
                 'only' => ['create', 'update', 'delete', 'view', 'index'],
                 'rules' => [
                     [
+                        'actions' => ['view', 'index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (Yii::$app->user->identity->role == 1){
+                                return true;
+                            }
+                            return false;
+                        }
+                    ],
+                    [
                         'actions' => ['create', 'update', 'delete', 'view', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (Yii::$app->user->identity->role >= 2){
+                                return true;
+                            }
+                            return false;
+                        }
                     ],
                 ],
             ],

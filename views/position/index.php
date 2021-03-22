@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PositionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Positions';
+$this->title = 'Должности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="position-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Position', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить должность', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,7 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'title',
+            [
+                'attribute' => 'Название',
+                'value' => 'title',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

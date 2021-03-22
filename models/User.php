@@ -12,6 +12,7 @@ use Yii;
  * @property string $password
  * @property string $full_name
  * @property string $email
+ * @property int $role 
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -32,12 +33,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             [['username', 'password', 'full_name', 'email'], 'required'],
             [['username', 'password'], 'string', 'max' => 50],
+            [['role'], 'integer'], 
             [['full_name', 'email'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['username'], 'match', 'pattern' => '/[a-z]+/i', 'message'=>'Имя пользователя должно содержать только латиницу!'],
             [['full_name'], 'match', 'pattern' => '/[а-я]+/ui', 'message'=>'ФИО может 
             содержать только кириллицу!'],
-            ['password_repeat', 'required'],
+            ['password_repeat', 'required', 'on' => 'create'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают" ],
         ];
     }
@@ -53,6 +55,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'password' => 'Password',
             'full_name' => 'Full Name',
             'email' => 'Email',
+            'role' => 'Role', 
         ];
     }
     /**

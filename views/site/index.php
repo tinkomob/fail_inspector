@@ -125,6 +125,8 @@ $gridColumns = [
 <p>
 <?= Html::a('Добавить нарушение', ['violations/create'], ['class' => 'btn btn-primary']) ?> 
 <?= Html::a('Добавить сотрудника', ['workers/create'], ['class' => 'btn btn-success']) ?>
+
+<?= Html::a('Добавить должность', ['position/create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Добавить тип нарушения', ['vitype/create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Добавить бригаду', ['team/create'], ['class' => 'btn btn-success']) ?>
     

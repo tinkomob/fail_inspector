@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Заполните следующие поля для вхожа:</p>
+    <p>Заполните следующие поля для входа:</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',

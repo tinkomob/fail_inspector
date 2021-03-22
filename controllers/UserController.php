@@ -22,10 +22,10 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                'only' => [ 'update', 'delete', 'view', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'actions' => [ 'update', 'delete', 'view', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
