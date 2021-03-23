@@ -22,10 +22,10 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => [ 'update', 'delete', 'view', 'index'],
+                'only' => [ 'update', 'delete', 'view', 'index', 'change-password'],
                 'rules' => [
                     [
-                        'actions' => [ 'update', 'delete', 'view', 'index'],
+                        'actions' => [ 'update', 'delete', 'view', 'index', 'change-password'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -36,7 +36,7 @@ class UserController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['view', 'update', 'delete',],
+                        'actions' => ['view', 'update', 'delete', 'change-password'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -119,6 +119,28 @@ class UserController extends Controller
         }
 
         return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+    public function actionChangePassword($id)
+    {
+        $model = $this->findModel($id);
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
+        if ($model->load(Yii::$app->request->post())){
+                $password = Yii::$app->request->post("User")['password'];
+                $password_repeat = Yii::$app->request->post("User")['password_repeat'];
+                // var_dump($password);
+                $model->password = md5($password);
+                $model->password_repeat = md5($password_repeat);
+                if( $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+        }
+
+        return $this->render('change-password', [
             'model' => $model,
         ]);
     }

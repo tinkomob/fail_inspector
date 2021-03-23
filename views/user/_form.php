@@ -15,10 +15,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Имя пользоватлея') ?>
 
     
-    <!-- <?php if($model->isNewRecord) { ?>
+    <?php if($model->isNewRecord) { ?>
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label('Пароль') ?>
         <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true])->label('Повторите пароль') ?>
-    <?php } ?> -->
+
+    <?php } ?>
     
 
     <?= $form->field($model, 'full_name')->textInput(['maxlength' => true])->label('ФИО') ?>
@@ -40,6 +41,7 @@ use yii\widgets\ActiveForm;
     <?php } else { ?>
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Сменить пароль', ['user/change-password', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </div>
     <?php } ?>
     

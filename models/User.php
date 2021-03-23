@@ -39,7 +39,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['username'], 'match', 'pattern' => '/[a-z]+/i', 'message'=>'Имя пользователя должно содержать только латиницу!'],
             [['full_name'], 'match', 'pattern' => '/[а-я]+/ui', 'message'=>'ФИО может 
             содержать только кириллицу!'],
-            ['password_repeat', 'required', 'on' => 'create'],
+            ['password_repeat', 'required'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают" ],
         ];
     }
@@ -120,12 +120,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->password === md5($password);
     }
     public function beforeSave($insert) {
-
-        $pass = md5($this->password);
-
-        $this->password = $pass;
-
+        if ($this->isNewRecord){
+                $pass = md5($this->password);
+                $this->password = $pass;
+        }
         return true;
-
     }
 }

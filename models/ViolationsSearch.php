@@ -59,7 +59,9 @@ class ViolationsSearch extends Violations
      */
     public function search($params)
     {
-        $query = Violations::find();
+        $query = Violations::find()->orderBy([
+            'date' => SORT_DESC //specify sort order ASC for ascending DESC for descending      
+            ]);
         $query->joinWith(['worker']);
         // add conditions that should always apply here
         
