@@ -19,8 +19,8 @@ use kartik\daterange\DateRangePicker;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-    
-<?=  $form->field($model, 'worker_id')->widget(Select2::classname(), [
+    <div class="search_inputs">
+    <?=  $form->field($model, 'worker_id')->widget(Select2::classname(), [
     'data' => ArrayHelper::map(Workers::find()->all(), 'id', 'fio', 'position.title'),
     'options' => ['placeholder' => 'Выберите сотрудника ...'],
     'pluginOptions' => [
@@ -75,6 +75,8 @@ $form->field($model, 'date', [
     ],
 ])->label('За период');
 ?>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton('Фильтровать', ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сброс', ['index'], ['class' => 'btn btn-default']) ?>

@@ -32,7 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'username',
             'password',
-            'full_name',
+            [
+                'attribute' => 'ФИО',
+                'value' => $model->full_name,
+            ],
+            [
+                'attribute' => 'Уровень доступа',
+                'value' => $model->role,
+            ],
+            
             'email:email',
         ],
     ]) ?>

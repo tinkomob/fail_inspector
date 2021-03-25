@@ -10,7 +10,9 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+    
+    ]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Имя пользоватлея') ?>
 
@@ -18,7 +20,6 @@ use yii\widgets\ActiveForm;
     <?php if($model->isNewRecord) { ?>
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label('Пароль') ?>
         <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true])->label('Повторите пароль') ?>
-
     <?php } ?>
     
 
@@ -35,16 +36,21 @@ use yii\widgets\ActiveForm;
     <?php } ?>
     
     <?php if($model->isNewRecord) { ?>
-        <div class="form-group">
-            <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-success']) ?>
-        </div>
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == 3) { ?>
+            <div class="form-group">
+                <?= Html::submitButton('Добавить', ['class' => 'btn btn-success']) ?>
+            </div>
+        <?php } else { ?>
+            <div class="form-group">
+                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-success']) ?>
+            </div>
+        <?php } ?>
     <?php } else { ?>
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
             <?= Html::a('Сменить пароль', ['user/change-password', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </div>
     <?php } ?>
-    
     <?php ActiveForm::end(); ?>
 
 </div>

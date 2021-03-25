@@ -63,6 +63,7 @@ $gridColumns = [
     'dataProvider' => $dataProvider,
     'toggleDataContainer' => ['class' => 'btn-group mr-2'],
     'showFooter' => true,
+    'responsiveWrap' => false,
     // 'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'kartik\grid\SerialColumn'],
@@ -120,7 +121,7 @@ $gridColumns = [
 
 ?>
 <?php if (!Yii::$app->user->isGuest):  ?>
-<h1>Управление</h1>
+<h2>Управление</h2>
 
 <p>
 <?= Html::a('Добавить нарушение', ['violations/create'], ['class' => 'btn btn-primary']) ?> 
